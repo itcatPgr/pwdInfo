@@ -12,7 +12,8 @@
         <property name="hibernate.connection.password">root1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping class="com.itcat.information.entity.mainInfo" />
+        <mapping class="com.itcat.information.model.СredentialsEntity" />
+        <mapping class="com.itcat.information.model.OrganizationEntity" />
         <!-- Other Hibernate properties -->
         <!--        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>-->
         <!--        <property name="hibernate.show_sql">true</property>-->

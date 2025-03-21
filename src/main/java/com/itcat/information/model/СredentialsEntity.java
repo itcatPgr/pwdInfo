@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "infoData", schema = "public", catalog = "postgres")
+@Table(name = "infodata", schema = "public", catalog = "postgres")
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @Builder
 public class СredentialsEntity {
     @Id

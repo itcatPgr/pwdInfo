@@ -18,7 +18,7 @@ public class CredentialsDao
         try (Session session = sessionFactory.openSession())
         {
             session.beginTransaction();
-            session.save(credentials);
+            session.persist(credentials);
             session.getTransaction().commit();
         }
     }
@@ -32,7 +32,7 @@ public class CredentialsDao
     public void update(СredentialsEntity credentials) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.update(credentials);
+            session.merge(credentials);
             session.getTransaction().commit();
         }
     }
@@ -40,7 +40,7 @@ public class CredentialsDao
     public void delete(СredentialsEntity credentials) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.delete(credentials);
+            session.remove(credentials);
             session.getTransaction().commit();
         }
     }

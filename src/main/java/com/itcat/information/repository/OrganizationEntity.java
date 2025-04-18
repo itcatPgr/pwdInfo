@@ -1,4 +1,4 @@
-package com.itcat.information.model;
+package com.itcat.information.repository;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "organization", schema = "public", catalog = "postgres")
+@Table(name = "organization")
 public class OrganizationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

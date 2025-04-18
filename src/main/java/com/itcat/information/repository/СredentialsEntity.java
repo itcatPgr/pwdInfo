@@ -1,10 +1,11 @@
-package com.itcat.information.model;
+package com.itcat.information.repository;
 
+import com.itcat.information.repository.OrganizationEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "infodata", schema = "public", catalog = "postgres")
+@Table(name = "credentials")
 @Setter
 @Getter
 @AllArgsConstructor

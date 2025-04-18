@@ -1,11 +1,8 @@
 package com.itcat.information.controller;
 
-import com.itcat.information.model.OrganizationEntity;
-import com.itcat.information.model.СredentialsEntity;
+import com.itcat.information.repository.OrganizationEntity;
+import com.itcat.information.repository.СredentialsEntity;
 import com.itcat.information.service.СredentialsService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class CredController
+public class CredentialsController
 {
     @Autowired
     private СredentialsService credentialsService;
@@ -31,6 +28,11 @@ public class CredController
         return credentialsService.getAllСredentials();
     }
 
+    @GetMapping("/items/login/{login}")
+    public Iterable<СredentialsEntity> getAllСredentials(@PathVariable String login) {
+        return credentialsService.findByLogin(login);
+    }
+
     @GetMapping("/deleteitem/{id}")
     public void deleteСredential(@PathVariable Long id) {
         credentialsService.deleteСredential(id);
@@ -41,7 +43,7 @@ public class CredController
         try
         {
             СredentialsEntity cred = СredentialsEntity.builder()
-                    .login("Vasya123").password("pwd2555").description("myDescr11")
+                    .login("Mary").password("pwd2").description("myDescr22")
                     .organization(credentialsService.getSession().getReference(OrganizationEntity.class, 2L)).build();
             credentialsService.saveСredential(cred);
             return ResponseEntity.ok("bingo");

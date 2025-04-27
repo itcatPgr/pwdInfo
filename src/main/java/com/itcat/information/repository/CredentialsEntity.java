@@ -1,6 +1,5 @@
 package com.itcat.information.repository;
 
-import com.itcat.information.repository.OrganizationEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @Builder
-public class СredentialsEntity {
+public class CredentialsEntity
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false)

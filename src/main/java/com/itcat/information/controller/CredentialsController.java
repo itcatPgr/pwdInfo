@@ -1,51 +1,49 @@
 package com.itcat.information.controller;
 
 import com.itcat.information.repository.OrganizationEntity;
-import com.itcat.information.repository.СredentialsEntity;
+import com.itcat.information.repository.CredentialsEntity;
 import com.itcat.information.service.СredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/credentials")
 public class CredentialsController
 {
     @Autowired
     private СredentialsService credentialsService;
 
-    @GetMapping("/items/{id}")
-    public СredentialsEntity getCredById(@PathVariable Long id) {
-        return credentialsService.getСredentialById(id);
+    @GetMapping
+    public Iterable<CredentialsEntity> findAll() {
+        return credentialsService.findAll();
     }
 
-    @GetMapping("/items")
-    public Iterable<СredentialsEntity> getAllСredentials() {
-        return credentialsService.getAllСredentials();
+    @GetMapping(path = "/description", params = {"descr"})
+    public Iterable<CredentialsEntity> findByDescription(@RequestParam String descr) {
+        return credentialsService.findByDescription(descr);
     }
 
-    @GetMapping("/items/login/{login}")
-    public Iterable<СredentialsEntity> getAllСredentials(@PathVariable String login) {
-        return credentialsService.findByLogin(login);
+    @GetMapping("/organization/{org}")
+    public Iterable<CredentialsEntity> findByOrganization(@PathVariable String org) {
+        return credentialsService.findByOrganization(org);
     }
 
-    @GetMapping("/deleteitem/{id}")
-    public void deleteСredential(@PathVariable Long id) {
-        credentialsService.deleteСredential(id);
+    @GetMapping("/{id}")
+    public CredentialsEntity findById(@PathVariable Long id) {
+        return credentialsService.findById(id);
     }
 
     @GetMapping("/save")
-    public ResponseEntity saveСredential() {
+    public ResponseEntity create() {
         try
         {
-            СredentialsEntity cred = СredentialsEntity.builder()
-                    .login("Mary").password("pwd2").description("myDescr22")
-                    .organization(credentialsService.getSession().getReference(OrganizationEntity.class, 2L)).build();
-            credentialsService.saveСredential(cred);
+            CredentialsEntity cred = CredentialsEntity.builder()//.id(3L)
+                    .login("Vanya").password("anyLetters").description("someText")
+                    .organization(credentialsService.getSession().getReference(OrganizationEntity.class, 3L)).build();
+            credentialsService.create(cred);
             return ResponseEntity.ok("bingo");
         }
         catch (Exception ex)
@@ -54,7 +52,21 @@ public class CredentialsController
         }
     }
 
-    @GetMapping("/")
+    @DeleteMapping("/{id}")
+    public void deleteCredential(@PathVariable Long id) {
+        credentialsService.deleteCredential(id);
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id,
+                       @RequestParam (required = false) String password,
+                       @RequestParam (required = false) String description,
+                       @RequestParam (required = false) String organization)
+    {
+        credentialsService.update(id, password, description, organization);
+    }
+
+    @GetMapping("/bingo/")
     public ResponseEntity main() {
         return ResponseEntity.ok("bingo");
     }
